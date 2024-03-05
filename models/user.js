@@ -21,22 +21,15 @@ module.exports = class User extends Sequelize.Model {
                 type: Sequelize.STRING(20),
                 allowNull: false,
                 unique: true,
-                defaultValue: '전화번호 미등록'
             },
             email: {
                 type: Sequelize.STRING(200),
                 allowNull: false,
                 unique: true,
-                defaultValue: '이메일 미등록'
             },
             adress: {
                 type: Sequelize.STRING(200),
                 allowNull: false,
-                defaultValue: '주소 미등록'
-            },
-            comment: {
-                type: Sequelize.TEXT,
-                allowNull: true,
             },
             created_at: {
                 type: Sequelize.DATE,
