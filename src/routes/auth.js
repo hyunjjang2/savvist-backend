@@ -7,7 +7,7 @@ const User = require('../../models/user');
 const router = express.Router();
 
 router.post('/join', isNotLoggedIn, async (req, res, next) => {
-    const {name, email, nick, password} = req.body;
+    const {name, email, nick, password,phone,adress} = req.body;
     try {
         const exUser = await User.findOne({where: { email }});
         if(exUser) {
@@ -16,8 +16,10 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
         const hash = await bcrypt.hash(password, 12);
         await User.create({
             name,
-            email,
             nick,
+            phone,
+            adress,
+            email,
             password: hash,
         });
         return res.redirect('/');
