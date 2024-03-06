@@ -52,6 +52,6 @@ module.exports = class Seller extends Sequelize.Model {
         });
     }
     static associate(db) {
-        db.User.hasMany(db.Product, {foreignKey: 'seller_id', sourceKey: 'id'});
+        db.Seller.hasMany(db.Product, {foreignKey: 'seller_id', sourceKey: 'id'});
     }
 };
