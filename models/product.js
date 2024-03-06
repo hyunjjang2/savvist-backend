@@ -1,33 +1,22 @@
 const Sequelize = require('sequelize');
 
-module.exports = class User extends Sequelize.Model {
+module.exports = class Product extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
             name: {
                 type: Sequelize.STRING(20),
                 allowNull: false,
             },
-            nick: {
+            price: {
                 type: Sequelize.STRING(20),
                 allowNull: false,
-                unique: true,
             },
-            password: {
+            description: {
                 type: Sequelize.STRING(100),
                 allowNull: false,
             },
-            phone: {
-                type: Sequelize.STRING(20),
-                allowNull: false,
-                unique: true,
-            },
-            email: {
-                type: Sequelize.STRING(200),
-                allowNull: false,
-                unique: true,
-            },
-            adress: {
-                type: Sequelize.STRING(200),
+            image_url: {
+                type: Sequelize.STRING(255),
                 allowNull: false,
             },
             created_at: {
@@ -39,14 +28,14 @@ module.exports = class User extends Sequelize.Model {
             sequelize,
             timestamps: false,
             underscored: false,
-            modelName: 'User',
-            tableName: 'users',
+            modelName: 'Product',
+            tableName: 'products',
             paranoid: false,
             charset: 'utf8',
             collate: 'utf8_general_ci',
         });
     }
     static associate(db) {
-        db.User.hasMany(db.Product, {foreignKey: 'user_id', sourceKey: 'id'});
+        db.Product.belongsTo(db.User, {foreignKey: 'user_id', targetKey: 'id'});
     }
 };
