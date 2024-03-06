@@ -3,20 +3,20 @@ const Sequelize = require('sequelize');
 module.exports = class Product extends Sequelize.Model {
     static init(sequelize) {
         return super.init({
-            name: {
-                type: Sequelize.STRING(20),
+            title: {
+                type: Sequelize.STRING(15),
                 allowNull: false,
             },
             price: {
-                type: Sequelize.STRING(20),
+                type: Sequelize.INTEGER(15),
                 allowNull: false,
             },
             description: {
-                type: Sequelize.STRING(100),
+                type: Sequelize.STRING(1000),
                 allowNull: false,
             },
-            image_url: {
-                type: Sequelize.STRING(255),
+            img_url: {
+                type: Sequelize.STRING(600),
                 allowNull: false,
             },
             created_at: {
@@ -36,6 +36,7 @@ module.exports = class Product extends Sequelize.Model {
         });
     }
     static associate(db) {
-        db.Product.belongsTo(db.User, {foreignKey: 'user_id', targetKey: 'id'});
+        db.Product.belongsTo(db.Seller, {foreignKey: 'seller_id', targetKey: 'id'});
+        db.Product.hasMany(db.Product_in_order, {foreignKey: 'product_id', sourceKey: 'id'});
     }
 };
