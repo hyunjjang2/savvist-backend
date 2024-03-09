@@ -5,7 +5,14 @@ const router = express.Router();
 
 router.post('/register', async(req, res, next)=>{
     try{
-        //제품 등록 로직 구현
+        const {title,price,description,img_url,id} = req.body;
+        await Product.create({
+            title,
+            price,
+            description,
+            img_url,
+            seller_id : id,
+        });
         res.status(200).send("상품이 등록되었습니다.");
     } catch (err) {
         console.log(err);
