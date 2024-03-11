@@ -9,7 +9,8 @@ const router = express.Router();
 router.post('/join', isNotLoggedIn, async (req, res, next) => {
     const {username, userid, email, nickname, password,phone,adress} = req.body;
     try {
-        const exUser = await User.findOne({where: { email }});
+        const exUser = await User.findOne({where: { userid }});
+        console.log(exUser);
         if(exUser) {
             return res.redirect('/join?error=exist');
         }
@@ -30,6 +31,22 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
     }
 });
 
+//아이디 중복확인 api
+router.post('/checkid',async(req, res, next)=> {
+    try {
+        const {userid} = req.body;
+        const exID = await User.findOne({where: {userid} });
+        if (exID) {
+            return res.status(500).send('사용중인 아이디입니다.');
+        } else {
+            return res.status(200).send('사용 가능한 아이디입니다.');
+        }
+    } catch (err){
+        console.error(err);
+        return next(err);
+    }
+});
+
 router.post('/login', isNotLoggedIn, (req, res, next) => {
     passport.authenticate('local' , (authError, user, info) => {
         if(authError) {
@@ -37,7 +54,7 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
             return next(authError);
         }
         if (!user) {
-            return res.redirect(`/?loginError=${info.message}`);
+            return res.redirect('/not-found');
         }
         return req.login(user, (loginError)=> {
             if (loginError) {
