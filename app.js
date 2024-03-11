@@ -55,6 +55,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/products',express.static(path.join(__dirname, 'products')));
 app.use('/products',productRouter);
 
 app.use((req, res, next)=> {
