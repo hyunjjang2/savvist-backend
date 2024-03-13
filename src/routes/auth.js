@@ -61,7 +61,13 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
                 console.error(loginError);
                 return next(loginError);
             }
-            return res.redirect('/');
+            const userInfo = {
+                userid : user.userid,
+                username: user.username,
+            };
+            // 클라이언트에게 사용자 정보를 응답
+            res.status(200).json(userInfo);
+
         });
     })(req, res, next);
 });
