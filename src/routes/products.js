@@ -48,7 +48,7 @@ router.get('/', async(req, res, next)=>{
 router.post('/register',upload.single('img_url'), async(req, res, next)=>{
     
     try{
-        const {title,price,description,img_url,id} = req.body;
+        const {title,price,description,id} = req.body;
         const imageUrl = req.file.path;
         await Product.create({
             title,
