@@ -31,7 +31,15 @@ module.exports = class User extends Sequelize.Model {
                 allowNull: false,
                 unique: true,
             },
-            adress: {
+            zipNo: {
+                type: Sequelize.INTEGER(20),
+                allowNull: false,
+            },
+            addr: {
+                type: Sequelize.STRING(300),
+                allowNull: false,
+            },
+            addrDetail: {
                 type: Sequelize.STRING(300),
                 allowNull: false,
             },
