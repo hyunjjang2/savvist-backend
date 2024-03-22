@@ -12,10 +12,12 @@ const authRouter = require('./src/routes/auth');
 const productRouter = require('./src/routes/products');
 const passport = require('passport');
 const passportConfig = require('./passport');
+const cors = require('cors');
 
 dotenv.config();
 
 const app = express();
+app.use(cors({origin: "http://localhost:3000", credentials:true}));
 passportConfig();
 
 const port = 5000
