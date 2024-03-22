@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', async(req, res, next)=>{
     try{
         const users = await User.findAll();
-        res.render('sequelize', {users});
+        res.send("안녕하시와요");
     } catch (err) {
         console.error(err);
         next(err);
