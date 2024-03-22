@@ -26,7 +26,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
             email,
             password: hash,
         });
-        return res.redirect('/');
+        res.status(200).send("회원가입 완료");
     }   catch (error) {
         console.error(error);
         return next(error);
@@ -69,15 +69,29 @@ router.post('/login', isNotLoggedIn, (req, res, next) => {
             };
             // 클라이언트에게 사용자 정보를 응답
             res.status(200).json(userInfo);
-
+            
         });
     })(req, res, next);
 });
 
-router.get('/logout', isLoggedIn, (req, res) => {
-    req.logout();
-    req.session.destroy();
-    res.redirect('/');
-});
+router.get('/logout', (req, res, next) => {
+    req.logOut(err => {
+      if (err) {
+        return next(err);
+      } else {
+        res.status(200).send("로그아웃 성공");
+      }
+    });
+  });
+//로그인 유무 확인하고 유저 정보 반환해주는 api
+router.get('/user',isLoggedIn ,(req, res) => {
+    
+    if (req.user) {
+      res.status(200).json(req.user);
+    } else {
+      res.status(401).json({ error: '인증 실패' });
+    }
+  });
+
 
 module.exports = router;
