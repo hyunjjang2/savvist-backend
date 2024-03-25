@@ -45,7 +45,7 @@ router.get('/', async(req, res, next)=>{
 
 });
 
-router.get('/register',upload.single('img_url'), async(req, res, next)=>{
+router.post('/register',upload.single('img_url'), async(req, res, next)=>{
     
     try{
         const {title,price,description,id} = req.body;
