@@ -5,7 +5,7 @@ const Order = require('./order');
 const Product_in_order = require('./product_in_order');
 const Seller = require('./seller');
 const env = process.env.NODE_ENV || 'development';
-const config = require('../config/config.json')[env];
+const config = require('../../config/config.json')[env];
 const db = {};
 
 const sequelize = new Sequelize(config.database, config.username, config.password,config);

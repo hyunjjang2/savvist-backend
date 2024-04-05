@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const dotenv = require('dotenv');
 
-const {sequelize} = require('./models');
+const {sequelize} = require('./src/models');
 const indexRouter = require('./src/routes');
 const authRouter = require('./src/routes/auth');
 const productRouter = require('./src/routes/products');
@@ -16,6 +16,7 @@ const cors = require('cors');
 
 dotenv.config();
 
+console.log(process.env.NODE_ENV);
 const app = express();
 app.use(cors({origin: "http://localhost:3000", credentials:true}));
 passportConfig();
@@ -70,7 +71,7 @@ app.use((err,req,res,next)=>{
   res.locals.message = err.message;
   res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
   res.status(err.status || 500);
-  res.render('error');
+  res.send(err.message);
 });
 
 app.listen(port, () => {
