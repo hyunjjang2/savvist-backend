@@ -7,7 +7,6 @@ const session = require('express-session');
 const dotenv = require('dotenv');
 
 const {sequelize} = require('./src/models');
-const indexRouter = require('./src/routes');
 const authRouter = require('./src/routes/auth');
 const productRouter = require('./src/routes/products');
 const passport = require('passport');
@@ -56,7 +55,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/products',express.static(path.join(__dirname, 'products')));
 app.use('/products',productRouter);
