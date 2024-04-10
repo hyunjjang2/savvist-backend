@@ -105,6 +105,27 @@ const checkEmail = async (req, res, next) => {
     }
 }
 
+const checkPhone = async (req, res, next) => {
+    const inputPhone = req.body.phone;
+    try{
+    const checkUserData = await authService.checkPhone(inputPhone);
+    if(checkUserData.ok) {
+        return res.status(200).json({
+            message: checkUserData.message,
+        })
+    }
+    else {
+        return res.status(409).json({
+            message: checkUserData.message,
+        })
+    }
+    } catch(error){
+        return res.status(500).json({
+            message: error.message,
+        })
+    }
+}
+
 const logout = (req,res,next) => {
     try{
         req.logOut(err => {
@@ -136,6 +157,7 @@ module.exports = {
     checkID,
     checkNickName,
     checkEmail,
+    checkPhone,
     logout,
     getUserInfo
 }

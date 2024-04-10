@@ -17,6 +17,10 @@ class UserRepository {
     async findUserByEmail(email) {
         return await User.findOne({ where: { email } });
     }
+
+    async findUserByPhone(phone) {
+        return await User.findOne({ where: { phone } });
+    }
 }
 
 

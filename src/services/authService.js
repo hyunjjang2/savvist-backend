@@ -92,5 +92,23 @@ class AuthService {
             throw error;
         }
     }
+
+    async checkPhone(inputPhone) {
+        try {
+            const exUser = await userRepository.findUserByPhone(inputPhone);
+            if(exUser){
+                return({
+                    ok: 0,
+                    message: "이미 사용중인 전화번호 입니다.",
+                })
+            }
+            return({
+                ok: 1,
+                message: "사용 가능한 전화번호 입니다.",
+            })
+        } catch(error){
+            throw error;
+        }
+    }
 }
 module.exports = AuthService;
