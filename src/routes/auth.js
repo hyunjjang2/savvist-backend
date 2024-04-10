@@ -3,7 +3,9 @@ const {isLoggedIn, isNotLoggedIn} = require('../middlewares/verifyLoggedin');
 const {
     registerUser,
     login,
-    checkUser,
+    checkID,
+    checkNickName,
+    checkEmail,
     logout,
     getUserInfo,
   } = require("../controllers/auth");
@@ -11,7 +13,9 @@ const {
 const router = express.Router();
 
 router.post('/join', isNotLoggedIn, registerUser);
-router.post('/checkid', checkUser);
+router.post('/checkid', checkID);
+router.post('/checknickname', checkNickName);
+router.post('/checkemail', checkEmail);
 router.post('/login', isNotLoggedIn, login );
 router.get('/logout',isLoggedIn,logout)
 router.get('/user',isLoggedIn, getUserInfo);

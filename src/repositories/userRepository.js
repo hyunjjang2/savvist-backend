@@ -9,6 +9,14 @@ class UserRepository {
     async findUserByUserId(userid) {
         return await User.findOne({ where: { userid } });
     }
+
+    async findUserByNickName(nickname) {
+        return await User.findOne({ where: { nickname } });
+    }
+
+    async findUserByEmail(email) {
+        return await User.findOne({ where: { email } });
+    }
 }
 
 

@@ -42,10 +42,52 @@ const login = async (req, res, next) => {
         })(req, res, next);
     }
 
-const checkUser = async (req, res, next) => {
+const checkID = async (req, res, next) => {
     const inputID = req.body.userid;
     try{
     const checkUserData = await authService.checkID(inputID);
+    if(checkUserData.ok) {
+        return res.status(200).json({
+            message: checkUserData.message,
+        })
+    }
+    else {
+        return res.status(409).json({
+            message: checkUserData.message,
+        })
+    }
+    } catch(error){
+        return res.status(500).json({
+            message: error.message,
+        })
+    }
+}
+
+const checkNickName = async (req, res, next) => {
+    const inputNickName = req.body.nickname;
+    try{
+    const checkUserData = await authService.checkNickName(inputNickName);
+    if(checkUserData.ok) {
+        return res.status(200).json({
+            message: checkUserData.message,
+        })
+    }
+    else {
+        return res.status(409).json({
+            message: checkUserData.message,
+        })
+    }
+    } catch(error){
+        return res.status(500).json({
+            message: error.message,
+        })
+    }
+}
+
+const checkEmail = async (req, res, next) => {
+    const inputEmail = req.body.email;
+    try{
+    const checkUserData = await authService.checkEmail(inputEmail);
     if(checkUserData.ok) {
         return res.status(200).json({
             message: checkUserData.message,
@@ -91,7 +133,9 @@ const getUserInfo = (req, res, next) => {
 module.exports = {
     registerUser,
     login,
-    checkUser,
+    checkID,
+    checkNickName,
+    checkEmail,
     logout,
     getUserInfo
 }

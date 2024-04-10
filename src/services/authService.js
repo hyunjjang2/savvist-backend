@@ -41,8 +41,8 @@ class AuthService {
 
     async checkID(inputID) {
         try {
-            const exID = await userRepository.findUserByUserId(inputID);
-            if(exID){
+            const exUser = await userRepository.findUserByUserId(inputID);
+            if(exUser){
                 return({
                     ok: 0,
                     message: "이미 사용중인 아이디 입니다.",
@@ -51,6 +51,42 @@ class AuthService {
             return({
                 ok: 1,
                 message: "사용 가능한 아이디 입니다.",
+            })
+        } catch(error){
+            throw error;
+        }
+    }
+
+    async checkNickName(inputNickName) {
+        try {
+            const exUser = await userRepository.findUserByNickName(inputNickName);
+            if(exUser){
+                return({
+                    ok: 0,
+                    message: "이미 사용중인 닉네임 입니다.",
+                })
+            }
+            return({
+                ok: 1,
+                message: "사용 가능한 닉네임 입니다.",
+            })
+        } catch(error){
+            throw error;
+        }
+    }
+
+    async checkEmail(inputEmail) {
+        try {
+            const exUser = await userRepository.findUserByEmail(inputEmail);
+            if(exUser){
+                return({
+                    ok: 0,
+                    message: "이미 사용중인 이메일 입니다.",
+                })
+            }
+            return({
+                ok: 1,
+                message: "사용 가능한 이메일 입니다.",
             })
         } catch(error){
             throw error;
